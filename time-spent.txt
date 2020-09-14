@@ -6,7 +6,7 @@ End:
 
 Total time: 
 Conceptual Questions: 
-Snake to camel: 
+Snake to camel: 40 mins
 Star out grid:
 Lucky Numbers Code: 
 
