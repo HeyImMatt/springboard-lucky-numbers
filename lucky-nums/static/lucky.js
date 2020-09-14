@@ -14,11 +14,13 @@ async function processForm(evt) {
 /** handleResponse: deal with response from our lucky-num API. */
 
 function handleResponse(resp) {
-  const errors = resp.errors
-  const $nameErr = $("#name-err")
-  const $yearErr = $("#year-err")
-  const $emailErr = $("#email-err")
-  const $colorErr = $("#color-err")
+  const errors = resp.errors;
+  const apiError = resp.apiError;
+  const $nameErr = $("#name-err");
+  const $yearErr = $("#year-err");
+  const $emailErr = $("#email-err");
+  const $colorErr = $("#color-err");
+  const $luckyResults = $("#lucky-results");
 
   $nameErr.text('');
   $yearErr.text('');
@@ -30,10 +32,12 @@ function handleResponse(resp) {
     $yearErr.text(errors.year)
     $emailErr.text(errors.email)
     $colorErr.text(errors.color)
+  } else if(apiError) {
+    $luckyResults.text(apiError.message)
   } else {
     const num = resp.num;
     const year = resp.year;
-    $("#lucky-results").text(`Your lucky number is ${num.num} (${num.fact}).
+    $luckyResults.text(`Your lucky number is ${num.num} (${num.fact}).
     Your birth year (${year.year}) fact is ${year.fact}`)
   }
 }
