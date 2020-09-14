@@ -7,7 +7,7 @@ End:
 Total time: 
 Conceptual Questions: 
 Snake to camel: 40 mins
-Star out grid:
+Star out grid: 35 mins
 Lucky Numbers Code: 
 
 Target time: 5-10 hours
