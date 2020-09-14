@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, make_response, render_template, request
-from helpers import validate_request
+from helpers import validate_request, get_num_facts
+import random
 
 app = Flask(__name__)
 
@@ -14,18 +15,23 @@ def homepage():
 def lucky_num():
     """POST route to process form data and send json response"""
 
+    name = request.json["name"]
+    email = request.json["email"]
+    year = request.json["year"]
+    color = request.json["color"]
+
     req = {
-        "name": request.json["name"],
-        "email": request.json["email"],
-        "year": request.json["year"],
-        "color": request.json["color"]
+        "name": name,
+        "email": email,
+        "year": year,
+        "color": color
     }
 
     validation = validate_request(req)
 
-    print(validation)
+    if validation == True:
+        num = random.randint(1,100)
+        data = get_num_facts(num, year)
+        return make_response(data, 200)
 
-    if validation:
-        return 'Next'
-    else:
-        return make_response(validation, 400)
+    return make_response(validation, 200)
