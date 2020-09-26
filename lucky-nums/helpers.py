@@ -1,5 +1,14 @@
 import requests
 
+class ValidationError(Exception):
+    def __init__(self, message, errors):
+    
+        # Call the base class constructor with the parameters it needs
+        super().__init__(message)
+
+        # this is where you can store an error dict
+        self.errors: dict = errors
+
 def validate_request(req):
     """Validates requests and responds with True or json error"""
 
@@ -16,10 +25,10 @@ def validate_request(req):
         if v == '':
             response["errors"][k] = required
 
-    if response["errors"] == {}:
-        return True
-
-    return response
+    if response["errors"] != {}:
+        raise ValidationError("", response)
+    
+    return True
 
 def get_num_facts(num, year):
     """Gets number facts for lucky number and birth year"""
