@@ -27,11 +27,11 @@ def lucky_num():
         "color": color
     }
 
-    validation = validate_request(req)
+    try:
+        validation = validate_request(req)
 
-    if validation == True:
         num = random.randint(1,100)
         data = get_num_facts(num, year)
         return make_response(data, 200)
-
-    return make_response(validation, 200)
+    except ValidationError as e:
+        return make_response(e.errors, 422)
